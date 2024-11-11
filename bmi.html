@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Rechner</title>
+    <style>
+        /* Stili für d Applikation */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin: 5px 0;
+            padding: 8px;
+            width: 100px;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BMI Rechner</h1>
+    <!-- Input für Gewicht und Grösse -->
+    <label for="weight">Gewicht (kg):</label><br>
+    <input type="number" id="weight" placeholder="z.B. 70"><br><br>
+    <label for="height">Grösse (cm):</label><br>
+    <input type="number" id="height" placeholder="z.B. 170"><br><br>
+    
+    <!-- Button zum BMI berechne -->
+    <button onclick="calculateBMI()">BMI berechne</button>
+    
+    <!-- Ergebnis anzeigen -->
+    <div id="result"></div>
+</div>
+
+<script>
+    // Funktion zum BMI berechne
+    function calculateBMI() {
+        // Wärt us de Input-Fälder usehole
+        const weight = parseFloat(document.getElementById("weight").value);
+        const height = parseFloat(document.getElementById("height").value) / 100; // cm in m umwandle
+
+        // Prüfe ob d Eingabe gültig isch
+        if (isNaN(weight) || isNaN(height) || height <= 0 || weight <= 0) {
+            document.getElementById("result").innerText = "Bitte gib e gültigi Zahl für Gewicht und Grösse i.";
+            return;
+        }
+
+        // BMI berechne
+        const bmi = weight / (height * height);
+        
+        // BMI kategorie definiere
+        let category = "";
+        if (bmi < 18.5) {
+            category = "Untergewicht";
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            category = "Normalgewicht";
+        } else if (bmi >= 25 && bmi < 29.9) {
+            category = "Übergewicht";
+        } else {
+            category = "Adipositas";
+        }
+
+        // Ergebnis anzeigen
+        document.getElementById("result").innerText = `Dein BMI isch ${bmi.toFixed(1)} (${category}).`;
+    }
+</script>
+
+</body>
+</html>
